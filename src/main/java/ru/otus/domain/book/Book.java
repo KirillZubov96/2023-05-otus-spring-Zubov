@@ -1,5 +1,6 @@
 package ru.otus.domain.book;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.otus.domain.author.Author;
@@ -7,6 +8,7 @@ import ru.otus.domain.genre.Genre;
 
 @Setter
 @Getter
+@AllArgsConstructor
 public class Book {
 
     private long id;
