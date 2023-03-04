@@ -18,4 +18,10 @@ public class Book {
     private Author author;
 
     private Genre genre;
+
+    public Book(String name, Author author, Genre genre) {
+        this.name = name;
+        this.author = author;
+        this.genre = genre;
+    }
 }
