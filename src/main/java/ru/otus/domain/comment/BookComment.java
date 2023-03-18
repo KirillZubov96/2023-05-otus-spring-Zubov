@@ -19,6 +19,6 @@ public class BookComment {
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
-    @Column(name = "comment", length = 4000)
+    @Column(name = "comment")
     private String comment;
 }
