@@ -5,7 +5,7 @@ import ru.otus.domain.book.Book;
 import java.util.List;
 
 public interface BookDao {
-    int count();
+    long count();
 
     void insert(String name, long authorId, long genreId);
 

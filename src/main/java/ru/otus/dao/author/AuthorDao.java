@@ -3,8 +3,8 @@ package ru.otus.dao.author;
 import ru.otus.domain.author.Author;
 
 public interface AuthorDao {
-    int count();
+   long count();
 
-    Author getById(long id);
+   Author getById(long id);
 
 }

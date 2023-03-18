@@ -1,27 +1,26 @@
 package ru.otus.domain.book;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import ru.otus.domain.author.Author;
 import ru.otus.domain.genre.Genre;
 
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "books")
 public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
+    @Column(name = "name", nullable = false)
     private String name;
-
-    private Author author;
-
-    private Genre genre;
-
-    public Book(String name, Author author, Genre genre) {
-        this.name = name;
-        this.author = author;
-        this.genre = genre;
-    }
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    @ManyToOne(targetEntity = Author.class)
+    private Integer author_id;
+    @JoinColumn(name = "genre_id", referencedColumnName = "id")
+    @ManyToOne(targetEntity = Genre.class)
+    private Integer genre_id;
 }

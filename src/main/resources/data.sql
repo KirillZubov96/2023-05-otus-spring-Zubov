@@ -6,3 +6,5 @@ insert into genres (`name`) values ('Комедия');
 
 insert into books (`name`, author_id, genre_id) values ('Война и мир', 1, 1);
 insert into books (`name`, author_id, genre_id) values ('Горе от ума', 2, 2);
+
+insert into book_comment (book_id, comment) values (1, "Комментарий к книге");

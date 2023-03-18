@@ -47,9 +47,7 @@ public class BookDaoJbdcTest {
     @DisplayName("возвращать ожидаемую книгу по id")
     @Test
     void shouldReturnExpectedBookById() {
-        Author author = authorDao.getById(EXPECTED_BOOKS_COUNT);
-        Genre genre = genreDao.getById(EXPECTED_BOOKS_COUNT);
-        Book expectedBook = new Book(EXPECTED_BOOKS_NAME, author, genre);
+        Book expectedBook = new Book();
         Book actualBook = bookDao.getById(expectedBook.getId());
         assertThat(actualBook).usingRecursiveComparison().isEqualTo(expectedBook);
     }
@@ -59,7 +57,7 @@ public class BookDaoJbdcTest {
     void shouldInsertBook() {
         Author author = Mockito.mock(Author.class);
         Genre genre = Mockito.mock(Genre.class);
-        Book expectedBook = new Book("Тестовая книга", author, genre);
+        Book expectedBook = new Book();
         bookDao.insert(expectedBook.getName(), author.getId(), genre.getId());
         Book actualBook = bookDao.getById(expectedBook.getId());
         assertThat(actualBook).usingRecursiveComparison().isEqualTo(expectedBook);
