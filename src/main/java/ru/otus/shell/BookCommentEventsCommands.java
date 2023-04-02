@@ -18,13 +18,13 @@ public class BookCommentEventsCommands {
     }
 
     @ShellMethod(value = "Add new book comment", key = {"add-book-comment"})
-    public void insertBook(long bookId, String comment) {
+    public void insertBook(int bookId, String comment) {
         bookCommentDao.insert(bookId, comment);
         System.out.print("Комментарий к книге добавлен");
     }
 
     @ShellMethod(value = "Get book comment by id", key = {"get-book-comment-by-id"})
-    public void getBookById(long id) {
+    public void getBookById(int id) {
         BookComment bookComment = bookCommentDao.getById(id);
         System.out.printf("Комментарий %s к книге с id = %s", bookComment.getComment(), bookComment.getBook().getId());
     }
@@ -36,7 +36,7 @@ public class BookCommentEventsCommands {
     }
 
     @ShellMethod(value = "Delete book comment by id", key = {"delete-book-comment-by-id"})
-    public void deleteBookById(long id) {
+    public void deleteBookById(int id) {
         bookCommentDao.deleteById(id);
         System.out.printf("комментарий с id = %s удален%n", id);
     }

@@ -23,15 +23,15 @@ public class AuthorDaoJbdcTest {
     @DisplayName("возвращать ожидаемое количество авторов в БД")
     @Test
     void shouldReturnExpectedAuthorsCount() {
-    //    int actualGenresCount = authorDao.count();
-    //    assertThat(actualGenresCount).isEqualTo(EXPECTED_AUTHORS_COUNT);
+        long actualGenresCount = authorDao.count();
+        assertThat(actualGenresCount).isEqualTo(EXPECTED_AUTHORS_COUNT);
     }
 
     @DisplayName("возвращать ожидаемого автора по его id")
     @Test
     void shouldReturnExpectedAuthorsById() {
-   //     Author expectedAuthor = new Author(EXPECTED_AUTHORS_COUNT, EXPECTED_AUTHOR_NAME);
-   //     Author actualAuthor = authorDao.getById(expectedAuthor.getId());
-   //     assertThat(actualAuthor).usingRecursiveComparison().isEqualTo(expectedAuthor);
+        Author expectedAuthor = new Author(EXPECTED_AUTHORS_COUNT, EXPECTED_AUTHOR_NAME);
+        Author actualAuthor = authorDao.getById(expectedAuthor.getId());
+        assertThat(actualAuthor).usingRecursiveComparison().isEqualTo(expectedAuthor);
     }
 }

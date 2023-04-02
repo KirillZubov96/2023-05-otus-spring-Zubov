@@ -2,20 +2,25 @@ package ru.otus.dao.comment;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
+import ru.otus.dao.book.BookDao;
+import ru.otus.dao.book.BookDaoJbdc;
 import ru.otus.domain.comment.BookComment;
 
 import java.util.List;
-@Repository
-@Transactional
+
+@Component
+@Data
 public class BookCommentDaoJdbc implements BookCommentDao {
 
     @PersistenceContext
     private final EntityManager em;
 
+    @Autowired
+    private BookDao bookDao;
     @Autowired
     public BookCommentDaoJdbc(EntityManager manager) {
         this.em = manager;
@@ -28,15 +33,13 @@ public class BookCommentDaoJdbc implements BookCommentDao {
     }
 
     @Override
-    public void insert(long book_id, String comment) {
-        em.createQuery(String.format("insert into BookComment (name, author_id, genre_id) values (%s, %s)", book_id, comment)).executeUpdate();
+    public void insert(int book_id, String comment) {
+        insertWithEntityManager(new BookComment(comment, bookDao.getById(book_id)));
     }
 
     @Override
-    public BookComment getById(long id) {
-        TypedQuery<BookComment> query = em.createQuery("select b from BookComment b where id = :id", BookComment.class);
-        query.setParameter("id", id);
-        return query.getSingleResult();
+    public BookComment getById(int id) {
+        return em.find(BookComment.class, id);
     }
 
     @Override
@@ -45,7 +48,12 @@ public class BookCommentDaoJdbc implements BookCommentDao {
     }
 
     @Override
-    public void deleteById(long id) {
-        em.createQuery("delete from BookComment where id = " + id).executeUpdate();
+    public void deleteById(int id) {
+        em.remove(getById(id));
+    }
+
+    @Transactional
+    private void insertWithEntityManager(BookComment bookComment) {
+        this.em.persist(bookComment);
     }
 }

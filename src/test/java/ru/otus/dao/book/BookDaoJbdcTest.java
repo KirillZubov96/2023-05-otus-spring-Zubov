@@ -40,7 +40,7 @@ public class BookDaoJbdcTest {
     @DisplayName("возвращать ожидаемое количество книг в БД")
     @Test
     void shouldReturnExpectedBookCount() {
-        int actualBooksCount = bookDao.count();
+        long actualBooksCount = bookDao.count();
         assertThat(actualBooksCount).isEqualTo(EXPECTED_BOOKS_COUNT);
     }
 
@@ -82,7 +82,7 @@ public class BookDaoJbdcTest {
         Genre genre = Mockito.mock(Genre.class);
         List<Book> actualBookList = bookDao.getAll();
         List<Book> expectedBookList = new ArrayList<>();
-        expectedBookList.add(new Book(EXPECTED_BOOKS_NAME, author, genre));
+        expectedBookList.add(new Book(EXPECTED_BOOKS_NAME, author.getId(), genre.getId()));
         assertThat(actualBookList.size() == (expectedBookList.size()));
         assertThat(actualBookList.get(0).getName().equals(expectedBookList.get(0).getName()));
     }

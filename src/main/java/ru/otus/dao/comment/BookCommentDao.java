@@ -8,11 +8,11 @@ import java.util.List;
 public interface BookCommentDao {
     long count();
 
-    void insert(long book_id, String comment);
+    void insert(int book_id, String comment);
 
-    BookComment getById(long id);
+    BookComment getById(int id);
 
     List<BookComment> getAll();
 
-    void deleteById(long id);
+    void deleteById(int id);
 }

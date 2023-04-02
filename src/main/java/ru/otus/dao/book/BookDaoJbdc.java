@@ -2,19 +2,14 @@ package ru.otus.dao.book;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.otus.domain.book.Book;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-@Repository
-@Transactional
+@Component
 public class BookDaoJbdc implements BookDao {
 
     @PersistenceContext
@@ -32,15 +27,13 @@ public class BookDaoJbdc implements BookDao {
     }
 
     @Override
-    public void insert(String name, long authorId, long genreId) {
-        em.createQuery(String.format("insert into Book (name, author_id, genre_id) values (%s, %s, %s)", name, authorId, genreId)).executeUpdate();
+    public void insert(String name, int authorId, int genreId) {
+        insertWithEntityManager(new Book(name, authorId, genreId));
     }
 
     @Override
-    public Book getById(long id) {
-        TypedQuery<Book> query = em.createQuery("select b from Book b where id = :id", Book.class);
-        query.setParameter("id", id);
-        return query.getSingleResult();
+    public Book getById(int id) {
+        return em.find(Book.class, id);
     }
 
     @Override
@@ -49,7 +42,12 @@ public class BookDaoJbdc implements BookDao {
     }
 
     @Override
-    public void deleteById(long id) {
-        em.createQuery("delete from Book where id = " + id).executeUpdate();
+    public void deleteById(int id) {
+        em.remove(getById(id));
+    }
+
+    @Transactional
+    private void insertWithEntityManager(Book book) {
+        this.em.persist(book);
     }
 }

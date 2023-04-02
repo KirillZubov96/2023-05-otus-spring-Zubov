@@ -23,4 +23,10 @@ public class Book {
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     @ManyToOne(targetEntity = Genre.class)
     private Integer genre_id;
+
+    public Book(String name, int author_id, int genre_id) {
+        this.name = name;
+        this.author_id = author_id;
+        this.genre_id = genre_id;
+    }
 }

@@ -16,9 +16,14 @@ public class BookComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
     @Column(name = "comment")
     private String comment;
+
+    public BookComment(String comment, Book book) {
+        this.comment = comment;
+        this.book = book;
+    }
 }

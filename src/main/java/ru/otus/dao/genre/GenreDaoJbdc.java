@@ -2,13 +2,11 @@ package ru.otus.dao.genre;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import ru.otus.domain.genre.Genre;
 
-@Repository
-@Transactional
+@Component
 public class GenreDaoJbdc implements GenreDao {
 
     @PersistenceContext
@@ -27,7 +25,6 @@ public class GenreDaoJbdc implements GenreDao {
 
     @Override
     public Genre getById(long id) {
-        return em.createQuery(
-                "select id, name from genres where id = " + id, Genre.class).getSingleResult();
+        return em.find(Genre.class, id);
     }
 }
