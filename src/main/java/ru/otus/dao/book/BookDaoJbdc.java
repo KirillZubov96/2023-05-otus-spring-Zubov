@@ -27,12 +27,12 @@ public class BookDaoJbdc implements BookDao {
     }
 
     @Override
-    public void insert(String name, int authorId, int genreId) {
-        insertWithEntityManager(new Book(name, authorId, genreId));
+    public void insert(Book book) {
+        this.em.persist(book);
     }
 
     @Override
-    public Book getById(int id) {
+    public Book getById(long id) {
         return em.find(Book.class, id);
     }
 
@@ -44,10 +44,5 @@ public class BookDaoJbdc implements BookDao {
     @Override
     public void deleteById(int id) {
         em.remove(getById(id));
-    }
-
-    @Transactional
-    private void insertWithEntityManager(Book book) {
-        this.em.persist(book);
     }
 }

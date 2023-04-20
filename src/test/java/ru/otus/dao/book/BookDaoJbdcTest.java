@@ -55,10 +55,8 @@ public class BookDaoJbdcTest {
     @DisplayName("добавлять книгу в БД")
     @Test
     void shouldInsertBook() {
-        Author author = Mockito.mock(Author.class);
-        Genre genre = Mockito.mock(Genre.class);
-        Book expectedBook = new Book();
-        bookDao.insert(expectedBook.getName(), author.getId(), genre.getId());
+        Book expectedBook = Mockito.mock(Book.class);
+        bookDao.insert(expectedBook);
         Book actualBook = bookDao.getById(expectedBook.getId());
         assertThat(actualBook).usingRecursiveComparison().isEqualTo(expectedBook);
     }
@@ -82,7 +80,7 @@ public class BookDaoJbdcTest {
         Genre genre = Mockito.mock(Genre.class);
         List<Book> actualBookList = bookDao.getAll();
         List<Book> expectedBookList = new ArrayList<>();
-        expectedBookList.add(new Book(EXPECTED_BOOKS_NAME, author.getId(), genre.getId()));
+        expectedBookList.add(new Book(EXPECTED_BOOKS_NAME, author, genre));
         assertThat(actualBookList.size() == (expectedBookList.size()));
         assertThat(actualBookList.get(0).getName().equals(expectedBookList.get(0).getName()));
     }

@@ -2,12 +2,14 @@ package ru.otus.dao.comment;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.otus.dao.book.BookDao;
 import ru.otus.dao.book.BookDaoJbdc;
+import ru.otus.domain.book.Book;
 import ru.otus.domain.comment.BookComment;
 
 import java.util.List;
@@ -34,7 +36,7 @@ public class BookCommentDaoJdbc implements BookCommentDao {
 
     @Override
     public void insert(int book_id, String comment) {
-        insertWithEntityManager(new BookComment(comment, bookDao.getById(book_id)));
+        em.persist(new BookComment(comment, bookDao.getById(book_id)));
     }
 
     @Override
@@ -52,8 +54,11 @@ public class BookCommentDaoJdbc implements BookCommentDao {
         em.remove(getById(id));
     }
 
-    @Transactional
-    private void insertWithEntityManager(BookComment bookComment) {
-        this.em.persist(bookComment);
+    @Override
+    public BookComment getByBookId(long book_id) {
+        TypedQuery<BookComment> query = em.createQuery("select b from BookComment b where b.book.id = :bookId", BookComment.class);
+        query.setParameter("bookId", book_id);
+        return query.getSingleResult();
     }
+
 }

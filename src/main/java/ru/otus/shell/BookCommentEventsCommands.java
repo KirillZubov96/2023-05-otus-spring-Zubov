@@ -3,6 +3,7 @@ package ru.otus.shell;
 import lombok.AllArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
+import ru.otus.dao.book.BookDao;
 import ru.otus.dao.comment.BookCommentDao;
 import ru.otus.domain.comment.BookComment;
 
@@ -11,6 +12,7 @@ import ru.otus.domain.comment.BookComment;
 public class BookCommentEventsCommands {
 
     private final BookCommentDao bookCommentDao;
+    private final BookDao bookDao;
 
     @ShellMethod(value = "Count Comments", key = {"count-comments", "CC"})
     public void countBooks() {
@@ -39,5 +41,10 @@ public class BookCommentEventsCommands {
     public void deleteBookById(int id) {
         bookCommentDao.deleteById(id);
         System.out.printf("комментарий с id = %s удален%n", id);
+    }
+
+    @ShellMethod(value = "Get book comment by book", key = {"get-book-comment-by-book-id"})
+    public void getBookCommentByBook(long bookId) {
+        bookCommentDao.getByBookId(bookId);
     }
 }

@@ -15,4 +15,6 @@ public interface BookCommentDao {
     List<BookComment> getAll();
 
     void deleteById(int id);
+
+    BookComment getByBookId(long book_id);
 }

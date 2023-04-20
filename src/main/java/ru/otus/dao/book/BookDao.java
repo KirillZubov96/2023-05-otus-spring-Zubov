@@ -7,9 +7,9 @@ import java.util.List;
 public interface BookDao {
     long count();
 
-    void insert(String name, int authorId, int genreId);
+    void insert(Book book);
 
-    Book getById(int id);
+    Book getById(long id);
 
     List<Book> getAll();
 
