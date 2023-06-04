@@ -1,26 +1,8 @@
-DROP TABLE IF EXISTS books;
-DROP TABLE IF EXISTS authors;
-DROP TABLE IF EXISTS genres;
-
-create table authors(
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name varchar(255)
-);
-create table genres(
-    id bigserial,
-    name varchar(255),
-    primary key (id)
-);
-create table books(
-    id bigserial,
-    name varchar(255),
-    author_id bigint references authors(id) on delete cascade,
-    genre_id bigint references genres(id) on delete cascade,
-    primary key (id)
-);
-create table book_comment(
-    id bigserial,
-    book_id bigint references books(id) on delete cascade,
-    comment varchar(255),
-    primary key (id)
-);
+DROP TABLE IF EXISTS BOOKS;
+CREATE TABLE BOOKS(ID LONG AUTO_INCREMENT PRIMARY KEY, TITLE VARCHAR(255), AUTHOR_ID INT, GENRE_ID INT);
+DROP TABLE IF EXISTS AUTHOR;
+CREATE TABLE AUTHOR(ID LONG AUTO_INCREMENT PRIMARY KEY, AUTHORNAME VARCHAR(255));
+DROP TABLE IF EXISTS GENRE;
+CREATE TABLE GENRE(ID LONG AUTO_INCREMENT PRIMARY KEY,GENRETITLE VARCHAR(255));
+DROP TABLE IF EXISTS COMMENT;
+CREATE TABLE COMMENT(ID LONG AUTO_INCREMENT PRIMARY KEY ,BOOKID LONG , COMMENTTEXT VARCHAR(255));
