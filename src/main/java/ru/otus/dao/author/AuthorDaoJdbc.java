@@ -1,30 +1,14 @@
 package ru.otus.dao.author;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 import ru.otus.domain.author.Author;
 
+import java.util.Optional;
+
 @Component
-public class AuthorDaoJdbc implements AuthorDao {
+public interface AuthorDaoJdbc extends CrudRepository<Author, Integer> {
+    Optional<Author> findById(int id);
 
-    @PersistenceContext
-    private final EntityManager em;
-
-    @Autowired
-    public AuthorDaoJdbc(EntityManager manager) {
-        this.em = manager;
-    }
-
-    @Override
-    public long count() {
-        Long count = em.createQuery("select count(*) from Author", Long.class).getSingleResult();
-        return count == null ? 0 : count;
-    }
-
-    @Override
-    public Author getById(long id) {
-        return em.find(Author.class, id);
-    }
+    Optional<Author> findByName(String s);
 }
