@@ -1,5 +1,6 @@
 package ru.otus.service;
 
+import jakarta.persistence.NoResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.otus.dao.LibraryDao;
@@ -24,14 +25,23 @@ public class BookServiceImpl implements BookService {
     @Override
     public void storeNewBook(String bookName, String authorName, String genreTitle) {
         Book newBook = new Book();
-        newBook.setTitle(bookName);
-        newBook.setAuthor(new Author(authorName));
-        newBook.setGenre(new Genre(genreTitle));
-
+        //Ищем автора и жанр, если таких нет - создаем новые
+        try {
+            Author author = libraryDao.getAuthorByName(authorName);
+            newBook.setAuthor(author);
+        } catch (NoResultException ex) {
+            newBook.setAuthor(new Author(authorName));
+        }
+        try {
+            Genre genre = libraryDao.getGenreByName(genreTitle);
+            newBook.setGenre(genre);
+        } catch (NoResultException ex) {
+            newBook.setGenre(new Genre(genreTitle));
+        }
         Book foundedBook = libraryDao.getBook(newBook);
         if (foundedBook != null) {
             System.out.println("This book already here!");
-            printInfoAboutBook(foundedBook);
+            printInfoAboutBook(foundedBook.getTitle());
             return;
         }
         libraryDao.storeBook(newBook);
@@ -43,7 +53,7 @@ public class BookServiceImpl implements BookService {
         System.out.println("Here is all book we have:");
         for (Book book :
                 libraryDao.getAllBooks()) {
-            printInfoAboutBook(book);
+            printInfoAboutBook(book.getTitle());
         }
     }
 
@@ -56,7 +66,7 @@ public class BookServiceImpl implements BookService {
     public void printByName(String name) {
         Book book = libraryDao.getBookByTitle(name);
         if (book != null) {
-            printInfoAboutBook(book);
+            printInfoAboutBook(book.getTitle());
         } else {
             System.out.println("No book found by Title " + name);
         }
@@ -81,7 +91,7 @@ public class BookServiceImpl implements BookService {
         }
         foundedBook.getComment().add(new Comment(bookId, comment));
         libraryDao.storeBook(foundedBook);
-        printInfoAboutBook(libraryDao.getBookByID(bookId));
+        printInfoAboutBook(libraryDao.getBookByID(bookId).getTitle());
     }
 
     @Override
@@ -90,8 +100,9 @@ public class BookServiceImpl implements BookService {
         System.out.println("Done");
     }
 
-
-    private void printInfoAboutBook(Book book) {
+    @Override
+    public void printInfoAboutBook(String title) {
+        Book book = libraryDao.getBookByTitle(title);
         System.out.println("==============");
         System.out.println("ID: " + book.getId());
         System.out.println("Title: " + book.getTitle());

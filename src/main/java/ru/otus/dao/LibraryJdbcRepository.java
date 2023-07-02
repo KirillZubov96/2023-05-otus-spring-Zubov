@@ -83,6 +83,24 @@ public class LibraryJdbcRepository implements LibraryDao {
     }
 
     @Override
+    public Author getAuthorByName(String name) {
+        TypedQuery<Author> query = em.createQuery(
+                "SELECT a FROM AUTHOR a WHERE a.AUTHORNAME = :name",
+                Author.class);
+        query.setParameter("name", name);
+        return query.getSingleResult();
+    }
+
+    @Override
+    public Genre getGenreByName(String name) {
+        TypedQuery<Genre> query = em.createQuery(
+                "SELECT g FROM Book g WHERE g.GENRETITLE = :name",
+                Genre.class);
+        query.setParameter("name", name);
+        return query.getSingleResult();
+    }
+
+    @Override
     public Book getBookByID(Long id) {
         return em.find(Book.class, id);
     }

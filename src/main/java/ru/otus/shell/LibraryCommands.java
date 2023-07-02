@@ -52,4 +52,7 @@ public class LibraryCommands {
         bookService.deleteBook(id);
     }
 
+    @ShellMethod(value = "Get info about book", key = "infoBook")
+    public void getInfoAboutBook(@ShellOption({"-t", "--title"}) String title) {bookService.printInfoAboutBook(title);}
+
 }

@@ -1,5 +1,6 @@
 package ru.otus.dao;
 
+import ru.otus.domain.author.Author;
 import ru.otus.domain.book.Book;
 import ru.otus.domain.genre.Genre;
 
@@ -18,4 +19,8 @@ public interface LibraryDao {
     List<Genre> getAllGenres();
 
     void removeBookById(Long id);
+
+    Author getAuthorByName(String name);
+
+    Genre getGenreByName(String name);
 }
