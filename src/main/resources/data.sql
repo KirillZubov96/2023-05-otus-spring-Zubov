@@ -1,8 +1,16 @@
-insert into authors (`name`) values ('Толстой Лев Николаевич');
-insert into authors (`name`) values ('Грибоедов Александр Сергеевич');
+INSERT INTO BOOKS (TITLE,AUTHOR_ID,GENRE_ID) VALUES ('book1',1,1);
+INSERT INTO BOOKS (TITLE,AUTHOR_ID,GENRE_ID) VALUES ('book2',2,1);
+INSERT INTO BOOKS (TITLE,AUTHOR_ID,GENRE_ID) VALUES ('book3',2,2);
+INSERT INTO BOOKS (TITLE,AUTHOR_ID,GENRE_ID) VALUES ('book4',3,3);
 
-insert into genres (`name`) values ('Роман');
-insert into genres (`name`) values ('Комедия');
+INSERT INTO AUTHOR (AUTHORNAME) VALUES ('author1');
+INSERT INTO AUTHOR (AUTHORNAME) VALUES ('author2');
+INSERT INTO AUTHOR (AUTHORNAME) VALUES ('author3');
 
-insert into books (`name`, author_id, genre_id) values ('Война и мир', 1, 1);
-insert into books (`name`, author_id, genre_id) values ('Горе от ума', 2, 2);
+
+INSERT INTO GENRE (GENRETITLE) VALUES ('genre1');
+INSERT INTO GENRE (GENRETITLE) VALUES ('genre2');
+INSERT INTO GENRE (GENRETITLE) VALUES ('genre3');
+
+INSERT INTO COMMENT (BOOKID,COMMENTTEXT) VALUES (2,'COMMENT FOR BOOK!');
+
