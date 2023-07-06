@@ -1,5 +1,8 @@
-insert into authors (`name`) values ('Автор');
+INSERT INTO BOOKS (ID, TITLE,AUTHOR_ID,GENRE_ID) VALUES (1, 'book1',1,1);
 
-insert into genres (`name`) values ('Жанр');
+INSERT INTO AUTHOR (ID,AUTHORNAME) VALUES (1,'author1');
 
-insert into books (`name`, author_id, genre_id) values ('Книга', 1, 1);
+INSERT INTO GENRE (ID,GENRETITLE) VALUES (1,'genre1');
+
+INSERT INTO COMMENT (ID,BOOKID,COMMENTTEXT) VALUES (1,2,'COMMENT FOR BOOK!');
+
