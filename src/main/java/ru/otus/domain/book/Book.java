@@ -1,32 +1,24 @@
 package ru.otus.domain.book;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import ru.otus.domain.author.Author;
 import ru.otus.domain.comment.Comment;
 import ru.otus.domain.genre.Genre;
 
 import java.util.List;
 
-@Entity
-@Table(name = "BOOKS")
+@Document(collection = "books")
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
     private String title;
 
-    @JoinColumn(name = "AUTHOR_ID")
-    @ManyToOne(cascade = {CascadeType.MERGE})
     private Author author;
 
-    @JoinColumn(name = "GENRE_ID")
-    @ManyToOne(cascade = {CascadeType.MERGE})
     private Genre genre;
 
-    @JoinColumn(name = "BOOKID")
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private List<Comment> comment;
 
     public Book() {
