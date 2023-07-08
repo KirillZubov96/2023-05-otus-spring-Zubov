@@ -55,4 +55,8 @@ public class LibraryCommands {
     @ShellMethod(value = "Get info about book", key = "infoBook")
     public void getInfoAboutBook(@ShellOption({"-t", "--title"}) String title) {bookService.printInfoAboutBook(title);}
 
+    @ShellMethod(value = "Show All Authors", key = "showAllAuthors")
+    public void showAllAuthors() {
+        bookService.printAllAuthors();
+    }
 }
