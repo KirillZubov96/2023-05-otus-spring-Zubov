@@ -1,21 +1,16 @@
 package ru.otus.domain.comment;
 
-import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
 @Data
-@Table(name = "COMMENT")
+@Document(collection = "comment")
 public class Comment {
 
     @Id
-    @Column(name = "ID", updatable = false, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "BOOKID", updatable = false, nullable = false)
     private Long bookId;
-    @Column(name = "COMMENTTEXT")
     private String text;
 
 

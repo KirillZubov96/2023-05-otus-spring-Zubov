@@ -1,6 +1,6 @@
 spring:
+  data:
+    mongodb:
+      database: library
   datasource:
     initialization-mode: always
-  jpa:
-    hibernate:
-      ddl-auto: none

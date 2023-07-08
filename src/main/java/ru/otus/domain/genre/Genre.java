@@ -1,16 +1,14 @@
 package ru.otus.domain.genre;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "GENRE")
+@Document(collection = "genres")
 public class Genre {
 
     @Id
-    @Column(name = "ID", updatable = false, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "GENRETITLE")
+
     private String title;
 
     public Genre(String genreTitle) {

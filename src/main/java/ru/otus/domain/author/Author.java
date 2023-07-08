@@ -1,17 +1,14 @@
 package ru.otus.domain.author;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "AUTHOR")
+@Document(collection = "authors")
 public class Author {
 
     @Id
-    @Column(name = "ID", updatable = false, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "AUTHORNAME")
     private String name;
 
     public Author(String name) {
