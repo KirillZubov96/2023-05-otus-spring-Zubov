@@ -9,8 +9,10 @@ public interface BookService {
     void printAllByGenre(String genre);
     void printByName(String name);
 
+    void printAllAuthors();
     void printAllGenres();
 
+    void printAllComments();
     void addCommentToBook(String comment, Long bookId);
 
     void deleteBook(Long id);
